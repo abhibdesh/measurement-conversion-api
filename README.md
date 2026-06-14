@@ -1,0 +1,269 @@
+# Measurement Conversion API
+
+A scalable and maintainable ASP.NET Core Web API for converting measurement units across multiple categories such as length, temperature, weight, and volume.
+
+The solution follows clean architecture principles and demonstrates extensibility through abstraction, dependency injection, centralized exception handling, reusable conversion logic, and unit testing.
+
+---
+
+## Features
+
+* ASP.NET Core 8 Web API
+* RESTful API design
+* Swagger / OpenAPI integration
+* Dependency Injection
+* Global Exception Handling Middleware
+* Input Validation
+* Unit Testing using xUnit
+* Extensible converter architecture
+* Case-insensitive unit and category handling
+
+---
+
+## Supported Conversion Categories
+
+### Length
+
+* Millimeter
+* Centimeter
+* Decimeter
+* Meter
+* Kilometer
+* Feet
+* Mile
+
+### Temperature
+
+* Celsius
+* Fahrenheit
+* Kelvin
+
+### Weight / Mass
+
+* Milligram
+* Gram
+* Kilogram
+* Pound
+
+### Volume
+
+* Milliliter
+* Liter
+* Gallon
+
+---
+
+## API Endpoint
+
+### Convert Units
+
+```http
+POST /api/v1/conversions
+```
+
+---
+
+## Sample Requests
+
+### Length Conversion
+
+```json
+{
+  "category": "length",
+  "fromUnit": "meter",
+  "toUnit": "feet",
+  "value": 10
+}
+```
+
+### Temperature Conversion
+
+```json
+{
+  "category": "temperature",
+  "fromUnit": "celsius",
+  "toUnit": "fahrenheit",
+  "value": 100
+}
+```
+
+### Weight Conversion
+
+```json
+{
+  "category": "weight",
+  "fromUnit": "kilogram",
+  "toUnit": "pound",
+  "value": 5
+}
+```
+
+### Volume Conversion
+
+```json
+{
+  "category": "volume",
+  "fromUnit": "liter",
+  "toUnit": "gallon",
+  "value": 3
+}
+```
+
+---
+
+## Sample Success Response
+
+```json
+{
+  "category": "length",
+  "fromUnit": "meter",
+  "toUnit": "feet",
+  "originalValue": 10,
+  "convertedValue": 32.8084
+}
+```
+
+---
+
+## Sample Error Response
+
+```json
+{
+  "error": "Invalid units for length conversion."
+}
+```
+
+---
+
+## Project Structure
+
+```text
+measurement-conversion-api/
+│
+├── UnitsConversionModule/
+│   ├── Controllers/
+│   ├── Converters/
+│   │   ├── Base/
+│   │   └── Interfaces/
+│   ├── Middleware/
+│   ├── Models/
+│   │   ├── Requests/
+│   │   └── Responses/
+│   ├── Services/
+│   │   └── Interfaces/
+│   ├── Constants/
+│   ├── Program.cs
+│   └── UnitsConversionModule.csproj
+│
+├── UnitsConversionModule.Tests/
+│
+└── README.md
+```
+
+---
+
+## Design Decisions and Trade-offs
+
+### Strategy-Based Converter Architecture
+
+The solution uses the `IUnitConverter` interface to support multiple conversion categories through interchangeable converter implementations. This allows new conversion categories to be added without modifying existing conversion logic.
+
+### Shared Abstract Base for Factor-Based Conversions
+
+Length, weight, and volume conversions follow the same factor-based conversion pattern. A shared abstract base class (`FactorBasedConverter`) was introduced to reuse common conversion logic and reduce duplication.
+
+Temperature conversion was implemented separately because it relies on formula-based conversion rather than factor normalization.
+
+### Dependency Injection
+
+Services and converters are registered using ASP.NET Core dependency injection to support loose coupling, maintainability, and testability.
+
+### Base Unit Normalization
+
+Factor-based converters normalize values through a common base unit before converting to the target unit. This avoids maintaining direct conversion mappings between every possible unit combination.
+
+### Error Handling
+
+Global exception middleware was added to provide consistent and clean API error responses.
+
+### Case-Insensitive Input Handling
+
+Unit names and categories are handled in a case-insensitive manner to improve usability and reduce client-side input issues.
+
+### Scalability Considerations
+
+Currently, conversion factors are hardcoded for simplicity. The architecture allows future migration to external configuration or database-backed storage with minimal structural changes.
+
+---
+
+## Prerequisites
+
+* .NET 8 SDK
+* Visual Studio 2022 or VS Code (optional)
+
+---
+
+## Running the Application
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/abhibdesh/measurement-conversion-api.git
+```
+
+### Navigate to the Project
+
+```bash
+cd measurement-conversion-api
+```
+
+### Restore Dependencies
+
+```bash
+dotnet restore
+```
+
+### Run the API
+
+```bash
+dotnet run --project .\UnitsConversionModule\
+```
+
+---
+
+## Access Swagger UI
+
+After running the application, Swagger UI will be available at:
+
+```text
+HTTPS: https://localhost:7275/swagger/index.html
+HTTP: http://localhost:5019/swagger/index.html
+```
+
+---
+
+## Running Unit Tests
+
+### Navigate to the Solution Root
+
+```bash
+cd measurement-conversion-api
+```
+
+### Run All Tests
+
+```bash
+dotnet test
+```
+
+---
+
+## Technologies Used
+
+* ASP.NET Core 8
+* C#
+* Swagger / OpenAPI
+* xUnit
+* Dependency Injection
+* REST API Design
+* Middleware-based Exception Handling
