@@ -225,9 +225,6 @@ dotnet restore
 
 ### Run the API
 
-```bash
-### Run the API
-
 Open the solution in Visual Studio and set `UnitsConversionModule` as the startup project.
 
 Run the application using:
@@ -240,29 +237,6 @@ Alternatively, from the `UnitsConversionModule` project directory:
 
 ```bash
 dotnet run
-```
-## Running Unit Tests
-
-Open the solution in Visual Studio.
-
-Tests can be executed using:
-
-* Test Explorer
-* `Test -> Run All Tests`
-* or by clicking the run icons beside individual test methods
-
-Alternatively, from the `UnitsConversionModule.Tests` project directory:
-
-```bash
-dotnet test
-```
-
-Or from the solution root directory to execute all tests:
-
-```bash
-dotnet test
-```
-
 ```
 
 ---
@@ -280,13 +254,21 @@ HTTP: http://localhost:5019/swagger/index.html
 
 ## Running Unit Tests
 
-### Navigate to the Solution Root
+Open the solution in Visual Studio.
+
+Tests can be executed using:
+
+* Test Explorer
+* `Test -> Run All Tests`
+* or by clicking the run icons beside individual test methods
+
+Alternatively, from the `UnitsConversionModule.Tests` project directory:
 
 ```bash
-cd measurement-conversion-api
+dotnet test
 ```
 
-### Run All Tests
+Or from the solution root directory to execute all tests:
 
 ```bash
 dotnet test
