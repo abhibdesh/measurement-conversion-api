@@ -1,0 +1,6 @@
+@UnitsConversionModule_HostAddress = http://localhost:5019
+
+GET {{UnitsConversionModule_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
