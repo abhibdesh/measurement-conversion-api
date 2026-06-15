@@ -232,6 +232,7 @@ Unit names and categories are handled in a case-insensitive manner to improve us
 ### Scalability Considerations
 
 Currently, conversion factors are hardcoded for simplicity. The architecture allows future migration to external configuration or database-backed storage with minimal structural changes.
+Future enhancements could include authentication and authorization mechanisms such as JWT-based security, rate limiting, persistent unit configuration storage, caching, and distributed deployment support depending on production requirements.
 
 ---
 
