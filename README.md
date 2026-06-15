@@ -111,6 +111,36 @@ POST /api/v1/conversions
 
 ---
 
+## cURL Examples
+
+### Length Conversion
+
+```bash
+curl -X POST "https://localhost:7275/api/v1/conversions" \
+-H "Content-Type: application/json" \
+-d '{
+  "category": "length",
+  "fromUnit": "meter",
+  "toUnit": "feet",
+  "value": 10
+}'
+```
+
+### Temperature Conversion with Negative Value
+
+```bash
+curl -X POST "https://localhost:7275/api/v1/conversions" \
+-H "Content-Type: application/json" \
+-d '{
+  "category": "temperature",
+  "fromUnit": "celsius",
+  "toUnit": "fahrenheit",
+  "value": -40
+}'
+```
+
+---
+
 ## Sample Success Response
 
 ```json
@@ -132,6 +162,15 @@ POST /api/v1/conversions
   "error": "Invalid units for length conversion."
 }
 ```
+
+---
+
+## Validation Rules
+
+* Negative values are allowed only for temperature conversions.
+* Length, weight, and volume conversions reject negative input values.
+* Unit names and categories are handled in a case-insensitive manner.
+* Invalid conversion categories or unsupported units return validation errors.
 
 ---
 
